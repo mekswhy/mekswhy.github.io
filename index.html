@@ -16,7 +16,11 @@ title: Home
       <a href="/tags/#{{ tag | cgi_escape }}" class="tags">{{ tag }}<sup>{{ site.tags[tag].size }}</sup></a>
     {% endfor %}
     <span class="post-date">{{ post.date | date_to_string }}</span>
-    {{ post.content | truncate: 1000}}
+
+    {{ post.content | split:'<!-- more -->' | first }}
+    {% if post.content contains '<!-- more -->' %}
+      <a href="{{ post.url }}">Read more</a>
+    {% endif %}
   </div>
   {% endfor %}
 </div>
